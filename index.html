@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thanh Phong Võ — Creative Developer</title>
+<meta name="description" content="Portfolio cá nhân của Thanh Phong Võ — Frontend / Creative Developer">
+<meta name="author" content="Thanh Phong Võ">
+<meta name="theme-color" content="#06070d">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Thanh Phong Võ — Creative Developer">
+<meta property="og:description" content="Portfolio cá nhân của Thanh Phong Võ — Frontend / Creative Developer">
+
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    root.classList.add('js');
+    try {
+      if (localStorage.getItem('portfolio-theme') === 'light') root.setAttribute('data-theme', 'light');
+    } catch (e) {}
+    window.__loaderFailsafe = setTimeout(function () { root.classList.remove('js'); }, 8000);
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Bỏ qua đến nội dung chính</a>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-inner">
+    <div class="loader-ring"></div>
+    <div class="loader-text">TP<span>.</span></div>
+    <div class="loader-progress">
+      <div class="loader-progress-bar" id="loaderBar"></div>
+    </div>
+    <div class="loader-percent" id="loaderPercent">0%</div>
+  </div>
+</div>
+
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+<canvas id="particleCanvas" aria-hidden="true"></canvas>
+<div class="grid-overlay" aria-hidden="true"></div>
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<nav class="navbar" id="navbar" aria-label="Điều hướng chính">
+  <div class="nav-inner">
+    <a href="#home" class="nav-logo" aria-label="Thanh Phong Võ — về đầu trang">TP<span class="logo-dot">.</span></a>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active" data-section="home"><span>Trang chủ</span></a></li>
+      <li><a href="#about" class="nav-link" data-section="about"><span>Giới thiệu</span></a></li>
+      <li><a href="#skills" class="nav-link" data-section="skills"><span>Kỹ năng</span></a></li>
+      <li><a href="#projects" class="nav-link" data-section="projects"><span>Dự án</span></a></li>
+      <li><a href="#experience" class="nav-link" data-section="experience"><span>Kinh nghiệm</span></a></li>
+      <li><a href="#achievements" class="nav-link" data-section="achievements"><span>Thành tựu</span></a></li>
+      <li><a href="#contact" class="nav-link" data-section="contact"><span>Liên hệ</span></a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Chuyển sang chế độ sáng" title="Chuyển sang chế độ sáng">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
+      <button type="button" class="hamburger" id="hamburger" aria-label="Mở menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#home" class="mobile-link">Trang chủ</a></li>
+    <li><a href="#about" class="mobile-link">Giới thiệu</a></li>
+    <li><a href="#skills" class="mobile-link">Kỹ năng</a></li>
+    <li><a href="#projects" class="mobile-link">Dự án</a></li>
+    <li><a href="#experience" class="mobile-link">Kinh nghiệm</a></li>
+    <li><a href="#achievements" class="mobile-link">Thành tựu</a></li>
+    <li><a href="#contact" class="mobile-link">Liên hệ</a></li>
+  </ul>
+  <div class="mobile-menu-footer">
+    <a href="#" class="social-mini" target="_blank" rel="noopener noreferrer">GitHub</a>
+    <a href="#" class="social-mini" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    <a href="#" class="social-mini" target="_blank" rel="noopener noreferrer">Behance</a>
+  </div>
+</div>
+
+<main id="main" tabindex="-1">
+
+<section class="hero" id="home">
+  <div class="hero-bg-glow"></div>
+
+  <div class="hero-inner">
+    <div class="hero-text" data-parallax="0.15">
+      <p class="hero-eyebrow-line"><span class="eyebrow-bracket">&lt;</span>Xin chào, tôi là<span class="eyebrow-bracket">/&gt;</span></p>
+
+      <h1 class="hero-name" id="heroName">Thanh Phong Võ</h1>
+
+      <div class="hero-role">
+        <span class="sr-only">Creative Frontend Developer</span>
+        <span id="typedRole" class="typed-role" aria-hidden="true" data-roles="Creative Frontend Developer|UI/UX Enthusiast|Xây dựng trải nghiệm web tương lai">Creative Frontend Developer</span><span class="typed-cursor" aria-hidden="true">|</span>
+      </div>
+
+      <p class="hero-slogan">Tôi biến những ý tưởng phức tạp thành trải nghiệm số mượt mà, tinh gọn và đáng nhớ — nơi công nghệ và thẩm mỹ gặp nhau.</p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">
+          <span>Xem dự án</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          <span>Liên hệ ngay</span>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-value"><span class="hero-stat-num" data-count="8" data-since="2018-01">8</span><span class="hero-stat-plus">+</span></span>
+          <span class="hero-stat-label">Năm kinh nghiệm</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-value"><span class="hero-stat-num" data-count="60">60</span><span class="hero-stat-plus">+</span></span>
+          <span class="hero-stat-label">Dự án hoàn thành</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-value"><span class="hero-stat-num" data-count="30">30</span><span class="hero-stat-plus">+</span></span>
+          <span class="hero-stat-label">Khách hàng hài lòng</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual" data-parallax="0.3">
+      <div class="avatar-frame">
+        <div class="avatar-ring avatar-ring-1" aria-hidden="true"></div>
+        <div class="avatar-ring avatar-ring-2" aria-hidden="true"></div>
+        <div class="avatar-glow" aria-hidden="true"></div>
+        <div class="avatar-inner">
+          <img src="images/avatar.jpg" alt="Ảnh đại diện Thanh Phong Võ" id="avatarImg" width="600" height="600" fetchpriority="high" data-fallback="TP">
+        </div>
+        <div class="avatar-badge avatar-badge-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+          <span>Sẵn sàng nhận việc</span>
+        </div>
+        <div class="avatar-badge avatar-badge-2">
+          <span class="badge-tech">React</span>
+        </div>
+        <div class="avatar-badge avatar-badge-3">
+          <span class="badge-tech">Three.js</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="scroll-indicator" aria-label="Cuộn xuống">
+    <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
+    <span class="scroll-text">Cuộn để khám phá</span>
+  </a>
+</section>
+
+<section class="section about" id="about">
+  <div class="section-inner">
+    <div class="section-head reveal" data-reveal="up">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Giới thiệu bản thân</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal" data-reveal="left">
+        <p class="about-lead">Tôi là <strong>Thanh Phong Võ</strong>, một Creative Developer với niềm đam mê tạo ra những sản phẩm số vừa đẹp mắt vừa hoạt động mượt mà đến từng chi tiết nhỏ nhất.</p>
+        <p>Trong hơn <span data-since="2018-01">8</span> năm làm việc, tôi đã hợp tác với các studio thiết kế, startup công nghệ và agency sáng tạo để xây dựng website, ứng dụng web và giao diện tương tác — luôn đặt trải nghiệm người dùng và hiệu năng lên hàng đầu.</p>
+        <p>Tôi tin rằng một sản phẩm tốt là sự cân bằng giữa kỹ thuật vững chắc và gu thẩm mỹ tinh tế. Ngoài công việc, tôi dành thời gian khám phá nghệ thuật generative, thử nghiệm shader và đóng góp cho các dự án mã nguồn mở.</p>
+
+        <div class="about-info-grid">
+          <div class="about-info-item">
+            <span class="info-label">Vị trí</span>
+            <span class="info-value">TP. Hồ Chí Minh, Việt Nam</span>
+          </div>
+          <div class="about-info-item">
+            <span class="info-label">Chuyên môn</span>
+            <span class="info-value">Frontend &amp; Creative Dev</span>
+          </div>
+          <div class="about-info-item">
+            <span class="info-label">Ngôn ngữ</span>
+            <span class="info-value">Tiếng Việt, English</span>
+          </div>
+          <div class="about-info-item">
+            <span class="info-label">Trạng thái</span>
+            <span class="info-value"><span class="status-dot"></span>Đang nhận dự án</span>
+          </div>
+        </div>
+
+        <a href="#" class="btn btn-outline">
+          <span>Tải CV của tôi</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+        </a>
+      </div>
+
+      <div class="about-visual reveal" data-reveal="right">
+        <div class="about-card tilt-card">
+          <div class="about-card-glow" aria-hidden="true"></div>
+          <img src="images/about.jpg" alt="Thanh Phong Võ ngồi giữa khu vườn cây thông xanh" class="about-img" width="640" height="800" loading="lazy" decoding="async" data-fallback="TP">
+          <div class="about-card-frame" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section skills" id="skills">
+  <div class="section-inner">
+    <div class="section-head reveal" data-reveal="up">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Kỹ năng chuyên môn</h2>
+      <p class="section-desc">Bộ công cụ tôi sử dụng để biến ý tưởng thành sản phẩm hoàn chỉnh, từ thiết kế đến triển khai.</p>
+    </div>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal" data-reveal="up" data-delay="0">
+        <div class="skill-card-top">
+          <span class="skill-name">HTML / CSS</span>
+          <span class="skill-percent" data-count="95">95</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="80">
+        <div class="skill-card-top">
+          <span class="skill-name">JavaScript / TypeScript</span>
+          <span class="skill-percent" data-count="92">92</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="92"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="160">
+        <div class="skill-card-top">
+          <span class="skill-name">React / Next.js</span>
+          <span class="skill-percent" data-count="90">90</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="240">
+        <div class="skill-card-top">
+          <span class="skill-name">GSAP / Framer Motion</span>
+          <span class="skill-percent" data-count="88">88</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="88"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="0">
+        <div class="skill-card-top">
+          <span class="skill-name">UI / UX Design</span>
+          <span class="skill-percent" data-count="85">85</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="80">
+        <div class="skill-card-top">
+          <span class="skill-name">Three.js / WebGL</span>
+          <span class="skill-percent" data-count="78">78</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="78"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="160">
+        <div class="skill-card-top">
+          <span class="skill-name">Node.js / API</span>
+          <span class="skill-percent" data-count="80">80</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="80"></div></div>
+      </div>
+
+      <div class="skill-card reveal" data-reveal="up" data-delay="240">
+        <div class="skill-card-top">
+          <span class="skill-name">Figma / Design System</span>
+          <span class="skill-percent" data-count="90">90</span>
+        </div>
+        <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+      </div>
+    </div>
+
+    <div class="tools-row reveal" data-reveal="up">
+      <span class="tool-chip">Vue.js</span>
+      <span class="tool-chip">Tailwind CSS</span>
+      <span class="tool-chip">Git / GitHub</span>
+      <span class="tool-chip">Docker</span>
+      <span class="tool-chip">Vite / Webpack</span>
+      <span class="tool-chip">Sanity CMS</span>
+      <span class="tool-chip">Firebase</span>
+      <span class="tool-chip">Jest</span>
+    </div>
+  </div>
+</section>
+
+<section class="section projects" id="projects">
+  <div class="section-inner">
+    <div class="section-head reveal" data-reveal="up">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Dự án nổi bật</h2>
+      <p class="section-desc">Một số sản phẩm tôi tự hào đã đồng hành cùng đội ngũ xây dựng từ ý tưởng đến khi ra mắt.</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="project-card tilt-card reveal" data-reveal="up" data-delay="0">
+        <div class="project-img-wrap">
+          <img src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=800&q=80" alt="Giao diện dự án Nexus Dashboard" loading="lazy">
+          <div class="project-overlay">
+            <a href="#" class="project-link" aria-label="Xem demo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="#" class="project-link" aria-label="Xem GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">Nexus Analytics Dashboard</h3>
+            <span class="project-year">2025</span>
+          </div>
+          <p class="project-desc">Bảng điều khiển phân tích dữ liệu thời gian thực cho đội ngũ vận hành, trực quan hóa hàng triệu điểm dữ liệu mượt mà ở 60fps.</p>
+          <div class="project-tags">
+            <span class="tag">React</span><span class="tag">D3.js</span><span class="tag">WebSocket</span><span class="tag">Node.js</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card tilt-card reveal" data-reveal="up" data-delay="100">
+        <div class="project-img-wrap">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="Giao diện dự án Aurora Commerce" loading="lazy">
+          <div class="project-overlay">
+            <a href="#" class="project-link" aria-label="Xem demo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="#" class="project-link" aria-label="Xem GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">Aurora Commerce Platform</h3>
+            <span class="project-year">2024</span>
+          </div>
+          <p class="project-desc">Nền tảng thương mại điện tử headless với trải nghiệm mua sắm 3D tương tác, tăng 34% tỷ lệ chuyển đổi so với bản cũ.</p>
+          <div class="project-tags">
+            <span class="tag">Next.js</span><span class="tag">Three.js</span><span class="tag">Shopify API</span><span class="tag">GSAP</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card tilt-card reveal" data-reveal="up" data-delay="200">
+        <div class="project-img-wrap">
+          <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800&q=80" alt="Giao diện dự án Pulse Studio" loading="lazy">
+          <div class="project-overlay">
+            <a href="#" class="project-link" aria-label="Xem demo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="#" class="project-link" aria-label="Xem GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">Pulse Design Studio</h3>
+            <span class="project-year">2024</span>
+          </div>
+          <p class="project-desc">Website portfolio cho studio thiết kế với hiệu ứng chuyển trang độc đáo và gallery tương tác dựa trên WebGL.</p>
+          <div class="project-tags">
+            <span class="tag">Vue.js</span><span class="tag">GLSL</span><span class="tag">Nuxt</span><span class="tag">Sanity</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card tilt-card reveal" data-reveal="up" data-delay="300">
+        <div class="project-img-wrap">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Giao diện dự án Orbit Fintech App" loading="lazy">
+          <div class="project-overlay">
+            <a href="#" class="project-link" aria-label="Xem demo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="#" class="project-link" aria-label="Xem GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">Orbit Fintech App</h3>
+            <span class="project-year">2023</span>
+          </div>
+          <p class="project-desc">Ứng dụng quản lý tài chính cá nhân với biểu đồ tương tác, xác thực sinh trắc học và đồng bộ đa nền tảng.</p>
+          <div class="project-tags">
+            <span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">Chart.js</span><span class="tag">Firebase</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card tilt-card reveal" data-reveal="up" data-delay="400">
+        <div class="project-img-wrap">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Giao diện dự án Vertex CMS" loading="lazy">
+          <div class="project-overlay">
+            <a href="#" class="project-link" aria-label="Xem demo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="#" class="project-link" aria-label="Xem GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">Vertex Headless CMS</h3>
+            <span class="project-year">2023</span>
+          </div>
+          <p class="project-desc">Hệ thống quản trị nội dung headless tự phát triển, hỗ trợ preview trực tiếp và cộng tác đa người dùng theo thời gian thực.</p>
+          <div class="project-tags">
+            <span class="tag">Node.js</span><span class="tag">GraphQL</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-card tilt-card reveal" data-reveal="up" data-delay="500">
+        <div class="project-img-wrap">
+          <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&q=80" alt="Giao diện dự án Lumen Portfolio Engine" loading="lazy">
+          <div class="project-overlay">
+            <a href="#" class="project-link" aria-label="Xem demo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+            <a href="#" class="project-link" aria-label="Xem GitHub" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-top">
+            <h3 class="project-title">Lumen Portfolio Engine</h3>
+            <span class="project-year">2022</span>
+          </div>
+          <p class="project-desc">Bộ công cụ tạo portfolio tuỳ biến cho các nhà sáng tạo, hơn 2.000 lượt sử dụng chỉ trong 3 tháng đầu ra mắt.</p>
+          <div class="project-tags">
+            <span class="tag">Svelte</span><span class="tag">Tailwind</span><span class="tag">Vite</span><span class="tag">Cloudflare</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="section experience" id="experience">
+  <div class="section-inner">
+    <div class="section-head reveal" data-reveal="up">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Kinh nghiệm làm việc</h2>
+      <p class="section-desc">Hành trình phát triển sự nghiệp qua từng vị trí và dự án.</p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item reveal" data-reveal="left">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-card tilt-card">
+          <span class="timeline-date" data-start="2023-01">2023 — Hiện tại<span class="timeline-duration"> · 3 năm 11 tháng</span></span>
+          <h3 class="timeline-role">Senior Frontend Developer</h3>
+          <span class="timeline-company">Orbit Digital Studio</span>
+          <p>Dẫn dắt đội ngũ 4 frontend developer xây dựng các sản phẩm SaaS quy mô lớn, thiết lập design system dùng chung cho toàn công ty.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" data-reveal="right">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-card tilt-card">
+          <span class="timeline-date">2021 — 2023</span>
+          <h3 class="timeline-role">Creative Developer</h3>
+          <span class="timeline-company">Pulse Agency</span>
+          <p>Phát triển các website tương tác cao cho khách hàng quốc tế, chuyên sâu về animation, WebGL và trải nghiệm chuyển động.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" data-reveal="left">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-card tilt-card">
+          <span class="timeline-date">2019 — 2021</span>
+          <h3 class="timeline-role">Frontend Developer</h3>
+          <span class="timeline-company">Nexus Technologies</span>
+          <p>Xây dựng và tối ưu hiệu năng cho hệ thống dashboard nội bộ phục vụ hơn 10.000 người dùng hàng ngày.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal" data-reveal="right">
+        <div class="timeline-dot" aria-hidden="true"></div>
+        <div class="timeline-card tilt-card">
+          <span class="timeline-date">2018 — 2019</span>
+          <h3 class="timeline-role">Junior Web Developer</h3>
+          <span class="timeline-company">Freelance</span>
+          <p>Nhận và triển khai các dự án website cho doanh nghiệp nhỏ, bắt đầu hành trình chuyên sâu vào frontend development.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section achievements" id="achievements">
+  <div class="section-inner">
+    <div class="section-head reveal" data-reveal="up">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Thành tựu nổi bật</h2>
+      <p class="section-desc">Những cột mốc và giải thưởng đáng nhớ trong hành trình sự nghiệp.</p>
+    </div>
+
+    <div class="achievements-grid">
+      <div class="achievement-card tilt-card reveal" data-reveal="up" data-delay="0">
+        <div class="achievement-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a6 6 0 100-12 6 6 0 000 12z"/><path d="M8.5 13.5L7 22l5-3 5 3-1.5-8.5"/></svg>
+        </div>
+        <span class="achievement-num" data-count="12">12</span>
+        <span class="achievement-label">Giải thưởng thiết kế &amp; phát triển web</span>
+      </div>
+
+      <div class="achievement-card tilt-card reveal" data-reveal="up" data-delay="100">
+        <div class="achievement-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <span class="achievement-num" data-count="30">30</span><span class="achievement-plus">+</span>
+        <span class="achievement-label">Khách hàng &amp; đối tác đã hợp tác</span>
+      </div>
+
+      <div class="achievement-card tilt-card reveal" data-reveal="up" data-delay="200">
+        <div class="achievement-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h20v14H2z"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <span class="achievement-num" data-count="60">60</span><span class="achievement-plus">+</span>
+        <span class="achievement-label">Sản phẩm số đã ra mắt thành công</span>
+      </div>
+
+      <div class="achievement-card tilt-card reveal" data-reveal="up" data-delay="300">
+        <div class="achievement-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        </div>
+        <span class="achievement-num" data-count="98">98</span><span class="achievement-plus">%</span>
+        <span class="achievement-label">Điểm hài lòng trung bình từ khách hàng</span>
+      </div>
+    </div>
+
+    <div class="achievements-list reveal" data-reveal="up">
+      <div class="achievement-row">
+        <span class="achievement-row-year">2025</span>
+        <span class="achievement-row-text">Awwwards — Site of the Day cho dự án Aurora Commerce Platform</span>
+      </div>
+      <div class="achievement-row">
+        <span class="achievement-row-year">2024</span>
+        <span class="achievement-row-text">CSS Design Awards — Best UI/UX cho Pulse Design Studio</span>
+      </div>
+      <div class="achievement-row">
+        <span class="achievement-row-year">2023</span>
+        <span class="achievement-row-text">Diễn giả chính tại VNTech Frontend Summit về hiệu năng animation trên web</span>
+      </div>
+      <div class="achievement-row">
+        <span class="achievement-row-year">2022</span>
+        <span class="achievement-row-text">Top 3 Hackathon Quốc gia về sản phẩm Fintech sáng tạo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="section-inner">
+    <div class="section-head reveal" data-reveal="up">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Cùng kết nối nhé</h2>
+      <p class="section-desc">Có một dự án thú vị đang ấp ủ? Hãy gửi cho tôi vài dòng, tôi sẽ phản hồi trong vòng 24 giờ.</p>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-info reveal" data-reveal="left">
+        <a href="mailto:thanhphongdev2006@gmail.com" class="contact-info-item">
+          <div class="contact-info-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          </div>
+          <div>
+            <span class="contact-info-label">Email</span>
+            <span class="contact-info-value">thanhphongdev2006@<wbr>gmail.com</span>
+          </div>
+        </a>
+        <a href="tel:+84379995245" class="contact-info-item">
+          <div class="contact-info-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <span class="contact-info-label">Điện&nbsp;thoại</span>
+            <span class="contact-info-value">0379&nbsp;995&nbsp;245</span>
+          </div>
+        </a>
+        <div class="contact-info-item">
+          <div class="contact-info-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <span class="contact-info-label">Địa điểm</span>
+            <span class="contact-info-value">TP. Hồ Chí Minh, Việt Nam</span>
+          </div>
+        </div>
+
+        <div class="contact-socials">
+          <a href="#" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12a11.5 11.5 0 008.1 11c.6.1.8-.26.8-.58v-2c-3.3.72-4-1.4-4-1.4-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.1 1.84 1.24 1.84 1.24 1.08 1.85 2.84 1.32 3.53 1 .1-.78.42-1.32.76-1.62-2.64-.3-5.4-1.32-5.4-5.88 0-1.3.46-2.36 1.24-3.2-.14-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.22a11.4 11.4 0 016 0c2.3-1.54 3.3-1.22 3.3-1.22.66 1.65.26 2.88.12 3.18.78.84 1.24 1.9 1.24 3.2 0 4.58-2.76 5.58-5.4 5.87.42.36.8 1.08.8 2.18v3.24c0 .32.2.7.8.58A11.5 11.5 0 0023.5 12C23.5 5.65 18.35.5 12 .5z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 110-4.13 2.07 2.07 0 010 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></a>
+          <a href="#" class="social-icon" aria-label="Behance" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.5 8.4h5.1c2.6 0 4 1.1 4 3.1 0 1.3-.6 2.1-1.8 2.6 1.6.5 2.5 1.6 2.5 3.3 0 2.4-1.9 3.6-4.7 3.6H4.5V8.4zm3 4.6h1.8c1 0 1.6-.5 1.6-1.3 0-.9-.6-1.3-1.6-1.3H7.5v2.6zm0 5h2c1.2 0 1.9-.5 1.9-1.5 0-.9-.7-1.4-1.9-1.4h-2v2.9zM14.8 6h5.4v1.4h-5.4V6zm8.5 9.2c0 .3 0 .6-.05.9h-6.8c.1 1.5 1.1 2.3 2.4 2.3 1 0 1.7-.4 2-1.2h2.2c-.4 1.9-2.1 3.1-4.2 3.1-2.9 0-4.9-2-4.9-5s2-5 4.8-5c3 0 4.55 2.2 4.55 4.9zm-2.7-1.5c-.1-1.2-.9-2-2-2-1.1 0-1.9.7-2.1 2h4.1z"/></svg></a>
+        </div>
+      </div>
+
+      <form class="contact-form reveal" data-reveal="right" id="contactForm" novalidate data-endpoint="">
+        <div class="form-row">
+          <div class="form-group">
+            <input type="text" id="cfName" name="name" required minlength="2" maxlength="80" autocomplete="name" placeholder=" ">
+            <label for="cfName">Họ và tên</label>
+            <span class="form-line"></span>
+          </div>
+          <div class="form-group">
+            <input type="email" id="cfEmail" name="email" required maxlength="120" autocomplete="email" inputmode="email" placeholder=" ">
+            <label for="cfEmail">Email</label>
+            <span class="form-line"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" id="cfSubject" name="subject" required minlength="2" maxlength="120" placeholder=" ">
+          <label for="cfSubject">Chủ đề</label>
+          <span class="form-line"></span>
+        </div>
+
+        <div class="form-group">
+          <textarea id="cfMessage" name="message" required minlength="10" maxlength="2000" rows="5" placeholder=" "></textarea>
+          <label for="cfMessage">Nội dung tin nhắn</label>
+          <span class="form-line"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+          <span class="btn-submit-text">Gửi tin nhắn</span>
+          <span class="btn-submit-loading" aria-hidden="true">
+            <svg viewBox="0 0 24 24" class="spin"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="40" stroke-linecap="round"/></svg>
+          </span>
+          <svg class="btn-submit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="#home" class="footer-logo" aria-label="Thanh Phong Võ — về đầu trang">TP<span class="logo-dot">.</span></a>
+    <p class="footer-copy">© <span id="footerYear">2026</span> Thanh Phong Võ. Được thiết kế và xây dựng thủ công với sự tỉ mỉ.</p>
+    <div class="footer-socials">
+      <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="#" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="#" target="_blank" rel="noopener noreferrer">Behance</a>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Về đầu trang">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  <svg class="back-to-top-ring" viewBox="0 0 44 44" aria-hidden="true">
+    <circle cx="22" cy="22" r="20"></circle>
+  </svg>
+</button>
+
+<script src="script.js"></script>
+</body>
+</html>
